@@ -1,6 +1,6 @@
-# DNS Latency Check
+# DNS Latency Test Tool
 
-A small Node.js CLI that measures DNS resolution latency from your machine to a list of popular public DNS providers, so you can pick the fastest one for your network.
+A small Node.js CLI that measures DNS resolution latency from your machine to a list of popular public DNS providers, so you can pick the fastest one for your network for configuring on your router or device.
 
 It uses Node's built-in `dns` module to send real DNS queries directly to each provider's server (bypassing your system resolver), times the responses, and prints a table sorted from fastest to slowest.
 
