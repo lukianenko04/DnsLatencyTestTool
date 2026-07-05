@@ -18,6 +18,10 @@ It uses Node's built-in `dns` module to send real DNS queries directly to each p
 - DNS.WATCH (`84.200.69.80`)
 - HaGeZi DNS — Nuremberg, Falkenstein, Helsinki
 - Gcore DNS (`95.85.95.85`)
+- Lumen / Level 3 DNS (`4.2.2.1`)
+- Comodo / Xcitium Secure DNS (`8.26.56.26`)
+- Neustar UltraDNS Public (`156.154.70.1`)
+- dns.sb (`185.222.222.222`)
 
 ## Requirements
 
@@ -38,15 +42,19 @@ npm start
 ### Example output
 
 ```
-Checking DNS latency to 16 servers (4 queries each, domain: example.com)...
+Checking DNS latency to 20 servers (4 queries each, domain: example.com)...
 
-Provider                IP              Avg       Min       Max       Failures
---------------------------------------------------------------------------------
-Cloudflare (secondary)  1.0.0.1         11.4 ms   7.5 ms    16.4 ms   0/4
-CleanBrowsing           185.228.168.9   25.8 ms   21.3 ms   30.8 ms   0/4
-Quad9                   9.9.9.9         25.9 ms   22.2 ms   30.6 ms   0/4
+Provider                     IP              Avg       Min       Max       Failures
+-----------------------------------------------------------------------------------
+NextDNS                      45.90.28.0      11.5 ms   8.3 ms    19.6 ms   0/4
+Cloudflare                   1.1.1.1         13.4 ms   8.9 ms    21.5 ms   0/4
+Gcore DNS                    95.85.95.85     15.4 ms   11.1 ms   22.1 ms   0/4
 ...
+
+Best DNS for your location: NextDNS (45.90.28.0) — 11.5 ms avg
 ```
+
+The last line is printed in green in the terminal to make the winner easy to spot. If every server times out, the script prints "No DNS server responded successfully." instead.
 
 ## How it works
 
@@ -56,7 +64,7 @@ For each provider, the script:
 2. Sends 4 `resolve4` queries for `example.com` (a domain that's globally cached with a long TTL, so the timing reflects network round-trip rather than resolution work).
 3. Records the average, min, and max response time, plus any timeouts/failures.
 
-Results are sorted by average latency, fastest first.
+Results are sorted by average latency, fastest first, and the fastest responding provider is highlighted in green as the recommended DNS for your current location.
 
 ## Configuration
 
