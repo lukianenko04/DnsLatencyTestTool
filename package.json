@@ -1,0 +1,10 @@
+{
+  "name": "dns-latency-check",
+  "version": "1.0.0",
+  "description": "Check DNS resolution latency from this machine to popular public DNS providers",
+  "main": "check-dns-latency.js",
+  "scripts": {
+    "start": "node check-dns-latency.js"
+  },
+  "license": "MIT"
+}
