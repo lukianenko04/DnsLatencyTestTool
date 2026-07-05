@@ -21,6 +21,10 @@ const DNS_SERVERS = [
   { name: 'HaGeZi DNS (Falkenstein)', ip: '188.34.161.210' },
   { name: 'HaGeZi DNS (Helsinki)', ip: '95.217.163.17' },
   { name: 'Gcore DNS', ip: '95.85.95.85' },
+  { name: 'Lumen / Level 3 DNS', ip: '4.2.2.1' },
+  { name: 'Comodo / Xcitium Secure DNS', ip: '8.26.56.26' },
+  { name: 'Neustar UltraDNS Public', ip: '156.154.70.1' },
+  { name: 'dns.sb', ip: '185.222.222.222' },
 ];
 
 const TEST_DOMAIN = 'example.com';
@@ -96,6 +100,18 @@ async function main() {
       `${r.name.padEnd(nameWidth)}${r.ip.padEnd(16)}${formatMs(r.avg).padEnd(10)}${formatMs(r.min).padEnd(10)}${formatMs(r.max).padEnd(10)}${r.failures}/${ATTEMPTS}`
     );
   }
+
+  const best = results.find((r) => r.avg !== null);
+  if (best) {
+    const GREEN = '\x1b[32m';
+    const RESET = '\x1b[0m';
+    console.log(`\n${GREEN}Best DNS for your location: ${best.name} (${best.ip}) — ${formatMs(best.avg)} avg${RESET}`);
+  } else {
+    console.log('\nNo DNS server responded successfully.');
+  }
 }
 
-main();
+main().catch((err) => {
+  console.error(err);
+  process.exitCode = 1;
+});
